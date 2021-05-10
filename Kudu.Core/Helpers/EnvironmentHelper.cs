@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kudu.Contracts.Infrastructure;
+using System;
 
 namespace Kudu.Core.Helpers
 {
@@ -29,6 +30,12 @@ namespace Kudu.Core.Helpers
         {
             string isolation = System.Environment.GetEnvironmentVariable("WEBSITE_ISOLATION");
             return isolation == "hyperv" || isolation == "process";
+        }
+
+        public static bool IsRunFromPackage()
+        {
+            string runFromPackage = System.Environment.GetEnvironmentVariable("WEBSITE_RUN_FROM_PACKAGE");
+            return !string.IsNullOrEmpty(runFromPackage) && !StringUtils.IsFalseLike(runFromPackage);
         }
 
         public static bool IsLCOW()
